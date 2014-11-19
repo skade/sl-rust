@@ -87,11 +87,11 @@ fn main() {
     optflag("f", "", "reserved for future use"),
   ];
 
-  let matches = match getopts(args.tail(), opts) {
+  let matches = match getopts(args.tail(), &opts) {
     Ok(m) => { m }
     Err(f) => { panic!(f.to_string()) }
   };
-  
+
   let train: Box<Render> = if matches.opt_present("l") {
                              box Logo
                            } else if matches.opt_present("c") {

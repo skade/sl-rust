@@ -5,11 +5,11 @@ pub struct C51;
 
 impl Train for C51 {
   fn body(&self) -> &'static [&'static str] {
-    C51BODY
+    &C51BODY
   }
 
   fn wheelset(&self, x: uint) -> &'static [&'static str] {
-    C51WHL[x % 6]
+    &C51WHL[x % 6]
   }
 
   fn tender(&self) -> Option<&'static [&'static str]> {

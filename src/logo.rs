@@ -5,11 +5,11 @@ pub struct Logo;
 
 impl Train for Logo {
   fn body(&self) -> &'static [&'static str] {
-    LOGO
+    &LOGO
   }
 
   fn wheelset(&self, x: uint) -> &'static [&'static str] {
-    LWHL[x % 6]
+    &LWHL[x % 6]
   }
 
   fn tender(&self) -> Option<&'static [&'static str]> {
