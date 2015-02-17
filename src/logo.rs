@@ -1,6 +1,7 @@
 use super::Train;
 use super::data::{LOGO, LWHL, LCOAL, LCAR};
 
+#[derive(Copy)]
 pub struct Logo;
 
 impl Train for Logo {

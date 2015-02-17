@@ -1,6 +1,7 @@
 use super::Train;
 use super::data::{D51BODY, D51WHL, COAL};
 
+#[derive(Copy)]
 pub struct SL;
 
 impl Train for SL {

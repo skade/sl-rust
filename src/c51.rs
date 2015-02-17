@@ -1,6 +1,7 @@
 use super::Train;
 use super::data::{C51WHL, C51BODY, COAL};
 
+#[derive(Copy)]
 pub struct C51;
 
 impl Train for C51 {
