@@ -31,7 +31,7 @@ Relax, take a deep breath.
 
 ## Details for Beginners
 
-This is implemented as a library and a binary. The library provides the trains, along with all important information (does it have a tender, wagons, and if yes, how many?), the binary does the rendering. The library is independent of any external libraries, the binary needs `ncurses` and `libc` (you hopefully have the latter installed ;)).
+This is implemented as a library and a binary. The library provides the trains, along with all important information (does it have a tender, wagons, and if yes, how many?), the binary does the rendering. The library is independent of any external libraries, the binary needs `ncurses`, `ncursesw` and `libc` (you hopefully have the latter installed ;)).
 
 ## License
 
