@@ -1,4 +1,4 @@
-pub static C51BODY: [&'static str, ..7] = [
+pub static C51BODY: [&'static str; 7] = [
   "        ___                                            ",
   "       _|_|_  _     __       __             ___________",
   "    D__/   \\_(_)___|  |__H__|  |_____I_Ii_()|_________|",
@@ -8,7 +8,7 @@ pub static C51BODY: [&'static str, ..7] = [
   "|    | _______|_::-----------------[][]-----|       |  ",
 ];
 
-pub static C51WHL: [[&'static str, ..4], ..6] = [
+pub static C51WHL: [[&'static str; 4]; 6] = [
   [
     "| /~~ ||   |-----/~~~~\\  /[I_____I][][] --|||_______|__",
     "------'|oOo|==[]=-     ||      ||      |  ||=======_|__",
@@ -47,7 +47,7 @@ pub static C51WHL: [[&'static str, ..4], ..6] = [
   ]
 ];
 
-pub static D51BODY: [&'static str, ..7] = [
+pub static D51BODY: [&'static str; 7] = [
  "      ====        ________                ___________ ",
  "  _D _|  |_______/        \\__I_I_____===__|_________| ",
  "   |(_)---  |   H\\________/ |   |        =|___ ___|   ",
@@ -57,7 +57,7 @@ pub static D51BODY: [&'static str, ..7] = [
  "  |/ |   |-----------I_____I [][] []  D   |=======|__ "
 ];
 
-pub static D51WHL: [[&'static str, ..3], ..6] = [
+pub static D51WHL: [[&'static str; 3]; 6] = [
   [
     "__/ =| o |=-~~\\  /~~\\  /~~\\  /~~\\ ____Y___________|__ ",
     " |/-=|___|=    ||    ||    ||    |_____/~\\___/        ",
@@ -90,7 +90,7 @@ pub static D51WHL: [[&'static str, ..3], ..6] = [
   ]
 ];
 
-pub static COAL: [&'static str, ..10] = [
+pub static COAL: [&'static str; 10] = [
   "                              ",
   "                              ",
   "    _________________         ",
@@ -103,14 +103,14 @@ pub static COAL: [&'static str, ..10] = [
   "    \\_/   \\_/    \\_/   \\_/    ",
 ];
 
-pub static LOGO: [&'static str, ..4] = [
+pub static LOGO: [&'static str; 4] = [
   "     ++      +------ ",
   "     ||      |+-+ |  ",
   "   /---------|| | |  ",
   "  + ========  +-+ |  ",
 ];
 
-pub static LWHL: [[&'static str, ..2], ..6] = [
+pub static LWHL: [[&'static str; 2]; 6] = [
   [
     " _|--O========O~\\-+  ",
     "//// \\_/      \\_/    ",
@@ -137,7 +137,7 @@ pub static LWHL: [[&'static str, ..2], ..6] = [
   ]
 ];
 
-pub static LCOAL: [&'static str, ..6] = [
+pub static LCOAL: [&'static str; 6] = [
   "____                 ",
   "|   \\@@@@@@@@@@@     ",
   "|    \\@@@@@@@@@@@@@_ ",
@@ -146,7 +146,7 @@ pub static LCOAL: [&'static str, ..6] = [
   "   (O)       (O)     ",
 ];
 
-pub static LCAR: [&'static str, ..6] = [
+pub static LCAR: [&'static str; 6] = [
   "____________________ ",
   "|  ___ ___ ___ ___ | ",
   "|  |_| |_| |_| |_| | ",

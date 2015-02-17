@@ -8,5 +8,5 @@ dependencies = [
 [[package]]
 name = "ncurses"
 version = "5.71.1"
-source = "git+https://github.com/jeaye/ncurses-rs.git#5d9783fac92b4cb8b6219deda3a032be98b56a7d"
+source = "git+https://github.com/jeaye/ncurses-rs.git#89ad3e1b0879d734650d093780cc9751dea589da"
 

@@ -57,10 +57,10 @@ trait Render : Train + Copy {
   fn render_line(&self, y: i32, x: i32, line: &str) {
     let paint_len = (ncurses::COLS - x) as uint;
     if paint_len < line.len() {
-      ncurses::mvaddstr(y, x, line[0..paint_len]);
+      ncurses::mvaddstr(y, x, &line[0..paint_len]);
     } else if x < 0 {
       if -x < line.len() as i32 {
-        ncurses::mvaddstr(y, 0, line[-x as uint..line.len()]);
+        ncurses::mvaddstr(y, 0, &line[-x as uint..line.len()]);
       }
     } else {
       ncurses::mvaddstr(y, x, line);
@@ -93,11 +93,11 @@ fn main() {
   };
 
   let train: Box<Render> = if matches.opt_present("l") {
-                             box Logo
+                             Box::new(Logo)
                            } else if matches.opt_present("c") {
-                             box C51
+                             Box::new(C51)
                            } else {
-                             box SL
+                             Box::new(SL)
                            };
 
 
@@ -105,7 +105,7 @@ fn main() {
   unsafe { signal(SIGINT, SIG_IGN); }
 
   ncurses::noecho();
-  ncurses::curs_set(ncurses::CURSOR_INVISIBLE);
+  ncurses::curs_set(ncurses::CURSOR_VISIBILITY::CURSOR_INVISIBLE);
   ncurses::nodelay(ncurses::stdscr, true);
   ncurses::leaveok(ncurses::stdscr, true);
   ncurses::scrollok(ncurses::stdscr, false);
