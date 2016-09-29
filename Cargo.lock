@@ -2,11 +2,26 @@
 name = "sl"
 version = "0.1.0"
 dependencies = [
- "ncurses 5.71.1 (git+https://github.com/jeaye/ncurses-rs.git)",
+ "getopts 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ncurses 5.82.0 (git+https://github.com/jeaye/ncurses-rs.git)",
 ]
 
 [[package]]
+name = "getopts"
+version = "0.2.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "libc"
+version = "0.2.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "ncurses"
-version = "5.71.1"
-source = "git+https://github.com/jeaye/ncurses-rs.git#89ad3e1b0879d734650d093780cc9751dea589da"
+version = "5.82.0"
+source = "git+https://github.com/jeaye/ncurses-rs.git#59fbbc6456dcd87d29a7761576723dab0c08986b"
+dependencies = [
+ "libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
