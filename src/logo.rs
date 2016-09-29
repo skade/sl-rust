@@ -1,27 +1,27 @@
 use super::Train;
 use super::data::{LOGO, LWHL, LCOAL, LCAR};
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Logo;
 
 impl Train for Logo {
-  fn body(&self) -> &'static [&'static str] {
-    &LOGO
-  }
+    fn body(&self) -> &'static [&'static str] {
+        &LOGO
+    }
 
-  fn wheelset(&self, x: uint) -> &'static [&'static str] {
-    &LWHL[x % 6]
-  }
+    fn wheelset(&self, x: u32) -> &'static [&'static str] {
+        &LWHL[(x % 6) as usize]
+    }
 
-  fn tender(&self) -> Option<&'static [&'static str]> {
-    Some(LCOAL.as_slice())
-  }
+    fn tender(&self) -> Option<&'static [&'static str]> {
+        Some(&LCOAL)
+    }
 
-  fn wagons(&self) -> uint {
-    2
-  }
+    fn wagons(&self) -> u32 {
+        2
+    }
 
-  fn wagon(&self) -> Option<&'static [&'static str]> {
-    Some(LCAR.as_slice())
-  }
+    fn wagon(&self) -> Option<&'static [&'static str]> {
+        Some(&LCAR)
+    }
 }

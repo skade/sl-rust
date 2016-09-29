@@ -1,19 +1,19 @@
 use super::Train;
 use super::data::{C51WHL, C51BODY, COAL};
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct C51;
 
 impl Train for C51 {
-  fn body(&self) -> &'static [&'static str] {
-    &C51BODY
-  }
+    fn body(&self) -> &'static [&'static str] {
+        &C51BODY
+    }
 
-  fn wheelset(&self, x: uint) -> &'static [&'static str] {
-    &C51WHL[x % 6]
-  }
+    fn wheelset(&self, x: u32) -> &'static [&'static str] {
+        &C51WHL[(x % 6) as usize]
+    }
 
-  fn tender(&self) -> Option<&'static [&'static str]> {
-    Some(COAL.as_slice())
-  }
+    fn tender(&self) -> Option<&'static [&'static str]> {
+        Some(&COAL)
+    }
 }
