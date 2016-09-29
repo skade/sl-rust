@@ -9,8 +9,8 @@ impl Train for SL {
         &D51BODY
     }
 
-    fn wheelset(&self, x: u32) -> &'static [&'static str] {
-        &D51WHL[(x % 6) as usize]
+    fn wheelset(&self, x: usize) -> &'static [&'static str] {
+        &D51WHL[(x % 6)]
     }
 
     fn tender(&self) -> Option<&'static [&'static str]> {

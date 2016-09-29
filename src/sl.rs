@@ -5,7 +5,7 @@ mod data;
 
 pub trait Train {
     fn body(&self) -> &'static [&'static str];
-    fn wheelset(&self, x: u32) -> &'static [&'static str];
+    fn wheelset(&self, x: usize) -> &'static [&'static str];
     fn tender(&self) -> Option<&'static [&'static str]> {
         None
     }

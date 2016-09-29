@@ -16,7 +16,7 @@ trait Render: Train + Copy {
         let mut len = 0 as i32;
         let y = ncurses::LINES / 2;
         let body_iter = self.body().iter();
-        let wheelset_iter = self.wheelset(x as u32).iter();
+        let wheelset_iter = self.wheelset(x as usize).iter();
         let iter = body_iter.chain(wheelset_iter);
         let (_, hint) = iter.size_hint();
         let height = match hint {
