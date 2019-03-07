@@ -14,7 +14,7 @@ use sl::logo::Logo;
 trait Render: Train + Copy {
     fn render(&self, x: i32) {
         let mut len = 0 as i32;
-        let y = ncurses::LINES / 2;
+        let y = unsafe { ncurses::LINES } / 2;
         let body_iter = self.body().iter();
         let wheelset_iter = self.wheelset(x as usize).iter();
         let iter = body_iter.chain(wheelset_iter);
@@ -55,7 +55,7 @@ trait Render: Train + Copy {
     }
 
     fn render_line(&self, y: i32, x: i32, line: &str) {
-        let paint_len = (ncurses::COLS - x) as usize;
+        let paint_len = ( unsafe { ncurses::COLS } - x) as usize;
         if paint_len < line.len() {
             ncurses::mvaddstr(y, x, &line[0..paint_len]);
         } else if x < 0 {
@@ -98,11 +98,11 @@ fn main() {
 
     ncurses::noecho();
     ncurses::curs_set(ncurses::CURSOR_VISIBILITY::CURSOR_INVISIBLE);
-    ncurses::nodelay(ncurses::stdscr, true);
-    ncurses::leaveok(ncurses::stdscr, true);
-    ncurses::scrollok(ncurses::stdscr, false);
+    ncurses::nodelay( unsafe { ncurses::stdscr }, true);
+    ncurses::leaveok( unsafe { ncurses::stdscr }, true);
+    ncurses::scrollok( unsafe { ncurses::stdscr }, false);
 
-    for x in (-85..ncurses::COLS).rev() {
+    for x in (-85.. unsafe { ncurses::COLS } ).rev() {
         ncurses::clear();
         if matches.opt_present("l") {
             Logo.render(x)

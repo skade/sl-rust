@@ -1,12 +1,3 @@
-[root]
-name = "sl"
-version = "0.1.0"
-dependencies = [
- "getopts 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
- "libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
- "ncurses 5.82.0 (git+https://github.com/jeaye/ncurses-rs.git)",
-]
-
 [[package]]
 name = "getopts"
 version = "0.2.14"
@@ -25,3 +16,16 @@ dependencies = [
  "libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
+[[package]]
+name = "sl"
+version = "0.1.0"
+dependencies = [
+ "getopts 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ncurses 5.82.0 (git+https://github.com/jeaye/ncurses-rs.git)",
+]
+
+[metadata]
+"checksum getopts 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)" = "d9047cfbd08a437050b363d35ef160452c5fe8ea5187ae0a624708c91581d685"
+"checksum libc 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)" = "408014cace30ee0f767b1c4517980646a573ec61a57957aeeabcac8ac0a02e8d"
+"checksum ncurses 5.82.0 (git+https://github.com/jeaye/ncurses-rs.git)" = "<none>"
