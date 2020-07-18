@@ -10,8 +10,14 @@ use sl::Train;
 use sl::d51::SL;
 use sl::c51::C51;
 use sl::logo::Logo;
+use sl::tgv::TGV;
 
-trait Render: Train + Copy {
+fn speed2delay(speed: u32) -> u32 {
+    // if 4_000_000: 100 km/h -> 40 ms
+    4_000_000/speed
+}
+
+trait Render: Train {
     fn render(&self, x: i32) {
         let mut len = 0 as i32;
         let y = ncurses::LINES() / 2;
@@ -68,9 +74,11 @@ trait Render: Train + Copy {
     }
 }
 
+impl Render for dyn Train {}
 impl Render for SL {}
 impl Render for C51 {}
 impl Render for Logo {}
+impl Render for TGV {}
 
 fn main() {
     use libc::signal;
@@ -83,6 +91,7 @@ fn main() {
     let mut opts = Options::new();
     opts.optflag("l", "", "logo");
     opts.optflag("c", "", "C51");
+    opts.optflag("G", "", "TGV");
     opts.optflag("a", "", "reserved for future use");
     opts.optflag("f", "", "reserved for future use");
 
@@ -102,19 +111,33 @@ fn main() {
     ncurses::leaveok(ncurses::stdscr(), true);
     ncurses::scrollok(ncurses::stdscr(), false);
 
+    let train: Box<dyn Train> = {
+        if matches.opt_present("l") {
+            Box::new(Logo)
+        } else if matches.opt_present("c") {
+            Box::new(C51)
+        } else if matches.opt_present("G") {
+            // First Non prototype TGV was orange.
+            // Note: must be called after initscr().
+            if ncurses::has_colors() {
+                ncurses::start_color();
+                ncurses::init_pair(1, ncurses::COLOR_YELLOW, ncurses::COLOR_BLACK);
+                ncurses::attron(ncurses::COLOR_PAIR(1));
+            }
+
+            Box::new(TGV)
+        } else {
+            Box::new(SL)
+        }
+    };
+
     for x in (-85..ncurses::COLS()).rev() {
         ncurses::clear();
-        if matches.opt_present("l") {
-            Logo.render(x)
-        } else if matches.opt_present("c") {
-            C51.render(x)
-        } else {
-            SL.render(x)
-        };
+        train.render(x);
         ncurses::getch();
         ncurses::refresh();
         unsafe {
-            usleep(40000);
+            usleep(speed2delay(train.speed()));
         }
     }
     ncurses::endwin();

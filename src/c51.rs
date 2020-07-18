@@ -5,6 +5,10 @@ use super::data::{C51WHL, C51BODY, COAL};
 pub struct C51;
 
 impl Train for C51 {
+    fn speed(&self) -> u32 {
+        100
+    }
+
     fn body(&self) -> &'static [&'static str] {
         &C51BODY
     }
