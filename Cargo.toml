@@ -11,12 +11,10 @@ name = "sl"
 [lib]
 
 name = "sl"
+path = "src/sl.rs"
 
 [dependencies]
 
-getopts = "0.2.14"
+getopts = "0.2"
 libc = "0.2"
-
-[dependencies.ncurses]
-
-git = "https://github.com/jeaye/ncurses-rs.git"
+ncurses = "5.99"
