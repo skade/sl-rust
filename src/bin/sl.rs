@@ -10,11 +10,17 @@ use sl::Train;
 use sl::d51::SL;
 use sl::c51::C51;
 use sl::logo::Logo;
+use sl::tgv::TGV;
 
-trait Render: Train + Copy {
+fn speed2delay(speed: u32) -> u32 {
+    // if 4_000_000: 100 km/h -> 40 ms
+    4_000_000/speed
+}
+
+trait Render: Train {
     fn render(&self, x: i32) {
         let mut len = 0 as i32;
-        let y = unsafe { ncurses::LINES } / 2;
+        let y = ncurses::LINES() / 2;
         let body_iter = self.body().iter();
         let wheelset_iter = self.wheelset(x as usize).iter();
         let iter = body_iter.chain(wheelset_iter);
@@ -55,7 +61,7 @@ trait Render: Train + Copy {
     }
 
     fn render_line(&self, y: i32, x: i32, line: &str) {
-        let paint_len = ( unsafe { ncurses::COLS } - x) as usize;
+        let paint_len = ( ncurses::COLS() - x) as usize;
         if paint_len < line.len() {
             ncurses::mvaddstr(y, x, &line[0..paint_len]);
         } else if x < 0 {
@@ -68,9 +74,11 @@ trait Render: Train + Copy {
     }
 }
 
+impl Render for dyn Train {}
 impl Render for SL {}
 impl Render for C51 {}
 impl Render for Logo {}
+impl Render for TGV {}
 
 fn main() {
     use libc::signal;
@@ -83,6 +91,7 @@ fn main() {
     let mut opts = Options::new();
     opts.optflag("l", "", "logo");
     opts.optflag("c", "", "C51");
+    opts.optflag("G", "", "TGV");
     opts.optflag("a", "", "reserved for future use");
     opts.optflag("f", "", "reserved for future use");
 
@@ -98,23 +107,37 @@ fn main() {
 
     ncurses::noecho();
     ncurses::curs_set(ncurses::CURSOR_VISIBILITY::CURSOR_INVISIBLE);
-    ncurses::nodelay( unsafe { ncurses::stdscr }, true);
-    ncurses::leaveok( unsafe { ncurses::stdscr }, true);
-    ncurses::scrollok( unsafe { ncurses::stdscr }, false);
+    ncurses::nodelay(ncurses::stdscr(), true);
+    ncurses::leaveok(ncurses::stdscr(), true);
+    ncurses::scrollok(ncurses::stdscr(), false);
 
-    for x in (-85.. unsafe { ncurses::COLS } ).rev() {
-        ncurses::clear();
+    let train: Box<dyn Train> = {
         if matches.opt_present("l") {
-            Logo.render(x)
+            Box::new(Logo)
         } else if matches.opt_present("c") {
-            C51.render(x)
+            Box::new(C51)
+        } else if matches.opt_present("G") {
+            // First Non prototype TGV was orange.
+            // Note: must be called after initscr().
+            if ncurses::has_colors() {
+                ncurses::start_color();
+                ncurses::init_pair(1, ncurses::COLOR_YELLOW, ncurses::COLOR_BLACK);
+                ncurses::attron(ncurses::COLOR_PAIR(1));
+            }
+
+            Box::new(TGV)
         } else {
-            SL.render(x)
-        };
+            Box::new(SL)
+        }
+    };
+
+    for x in (-85..ncurses::COLS()).rev() {
+        ncurses::clear();
+        train.render(x);
         ncurses::getch();
         ncurses::refresh();
         unsafe {
-            usleep(40000);
+            usleep(speed2delay(train.speed()));
         }
     }
     ncurses::endwin();
