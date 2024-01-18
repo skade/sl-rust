@@ -4,6 +4,8 @@ name = "sl"
 version = "0.1.0"
 authors = [ "florian.gilcher@asquera.de" ]
 
+repository = "https://github.com/skade/rust-sl"
+
 [[bin]]
 
 name = "sl"
@@ -18,3 +20,27 @@ path = "src/sl.rs"
 getopts = "0.2"
 libc = "0.2"
 ncurses = "5.99"
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.7.2"
+# CI backends to support
+ci = ["github"]
+# The installers to generate for each app
+installers = ["shell", "npm", "homebrew"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["x86_64-unknown-linux-gnu", "aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-musl"]
+# The archive format to use for windows builds (defaults .zip)
+windows-archive = ".tar.gz"
+# The archive format to use for non-windows builds (defaults .tar.xz)
+unix-archive = ".tar.gz"
+# Publish jobs to run in CI
+pr-run-mode = "plan"
+# Where to host releases
+hosting = ["axodotdev", "github"]
